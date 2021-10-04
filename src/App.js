@@ -1,18 +1,25 @@
 import "./styles/App.css";
 import twitterLogo from "./assets/twitter-logo.svg";
+import opensea from "./assets/open-sea.svg";
+
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import { Link } from "react-router-dom";
 import myEpicNft from "./utils/MyEpicNFT.json";
+
 // Constants
 const TWITTER_HANDLE = "sonny_castroo";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = "";
 const TOTAL_MINT_COUNT = 50;
-
-const CONTRACT_ADDRESS = "0x8982A4122565e1e480f273f95adc7eF1Bfe97123";
+const OPENSEA_LINK =
+  "https://testnets.opensea.io/collection/squarenft-5qpeodbeai";
+const CONTRACT_ADDRESS = "0xE0448878de2F33108B6A6eC2e7838CF90200e1E4";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
+  const [minted, setMinted] = useState(0);
+  const [minting, setMinting] = useState(false);
+  const [link, setLink] = useState("");
 
   const checkIfWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -87,6 +94,9 @@ const App = () => {
           alert(
             `Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
           );
+          setLink(
+            `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
+          );
         });
 
         console.log("Setup event listener!");
@@ -113,13 +123,22 @@ const App = () => {
 
         console.log("Going to pop wallet now to pay gas...");
         let nftTxn = await connectedContract.makeAnEpicNFT();
-
+        // if you want to add price to nft
+        // let wei = ethers.utils.parseEther("1");
+        // {
+        //   from: currentAccount,
+        //   value: wei,
+        // }
         console.log("Mining...please wait.");
+        setMinting(true);
         await nftTxn.wait();
         console.log(nftTxn);
         console.log(
           `Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`
         );
+        setMinting(false);
+        const mintedSoFar = await connectedContract.mintedSoFar();
+        setMinted(mintedSoFar.toNumber());
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -152,7 +171,7 @@ const App = () => {
       onClick={askContractToMintNft}
       className="cta-button connect-wallet-button"
     >
-      Mint NFT
+      {minting ? "Minting please wait..." : "Mint NFT"}
     </button>
   );
 
@@ -167,8 +186,23 @@ const App = () => {
           {currentAccount === ""
             ? renderNotConnectedContainer()
             : renderMintUI()}
+          <p style={{ color: "white" }}>
+            {minted} / {TOTAL_MINT_COUNT} Amount minted
+          </p>
+          <button as={Link} target="_blank" rel="noreferrer" to={link}>
+            Visit NFT
+          </button>
         </div>
         <div className="footer-container">
+          <a
+            href={OPENSEA_LINK}
+            target="_blank"
+            rel="noreferrer"
+            className="footer-btn"
+          >
+            <img alt="Opensea" className="opensea-logo" src={opensea} />
+          </a>
+
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
             className="footer-text"

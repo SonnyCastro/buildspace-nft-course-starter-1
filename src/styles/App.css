@@ -85,7 +85,7 @@
 
 .footer-text {
   color: white;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -122,4 +122,20 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.footer-btn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.opensea-logo {
+  width: 10rem;
+  height: 4rem;
+  padding-right: 1rem;
 }
