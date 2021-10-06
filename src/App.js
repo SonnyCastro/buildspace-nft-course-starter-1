@@ -4,20 +4,22 @@ import opensea from "./assets/open-sea.svg";
 
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { Link } from "react-router-dom";
-import myEpicNft from "./utils/MyEpicNFT.json";
-
+// import myEpicNft from "./utils/MyEpicNFT.json";
+import ArbiMonkes from "./utils/ArbiMonkes.json";
+import gif from "../src/assets/arbimonkes.gif";
 // Constants
 const TWITTER_HANDLE = "sonny_castroo";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const TOTAL_MINT_COUNT = 50;
+const TOTAL_MINT_COUNT = 1000;
 const OPENSEA_LINK =
   "https://testnets.opensea.io/collection/squarenft-5qpeodbeai";
-const CONTRACT_ADDRESS = "0xE0448878de2F33108B6A6eC2e7838CF90200e1E4";
+// const CONTRACT_ADDRESS = "0xE0448878de2F33108B6A6eC2e7838CF90200e1E4";
+const CONTRACT_ADDRESS = "0x7CE6e07107E5B972a2CcaC6598FF8b06044Ec6A3";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [minted, setMinted] = useState(0);
+  const [supply, setSupply] = useState(0);
   const [minting, setMinting] = useState(false);
   const [link, setLink] = useState("");
 
@@ -82,24 +84,29 @@ const App = () => {
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(
           CONTRACT_ADDRESS,
-          myEpicNft.abi,
+          // myEpicNft.abi,
+          ArbiMonkes,
           signer
         );
 
+        const totalSupply = await connectedContract.totalSupply();
+        setSupply(totalSupply.toNumber());
         // THIS IS THE MAGIC SAUCE.
         // This will essentially "capture" our event when our contract throws it.
         // If you're familiar with webhooks, it's very similar to that!
-        connectedContract.on("NewEpicNFTMinted", (from, tokenId) => {
-          console.log(from, tokenId.toNumber());
-          alert(
-            `Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
-          );
-          setLink(
-            `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
-          );
-        });
+        // connectedContract.on("NewEpicNFTMinted", (from, tokenId) => {
+        //   console.log(from, tokenId.toNumber());
+        //   alert(
+        //     `Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
+        //   );
+        //   setLink(
+        //     `https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
+        //   );
+        // });
 
-        console.log("Setup event listener!");
+        // console.log("Setup event listener!");
+        // const mintedSoFar = await connectedContract.mintedSoFar();
+        // setMinted(mintedSoFar.toNumber());
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -117,18 +124,20 @@ const App = () => {
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(
           CONTRACT_ADDRESS,
-          myEpicNft.abi,
+          // myEpicNft.abi,
+          ArbiMonkes,
           signer
         );
 
-        console.log("Going to pop wallet now to pay gas...");
-        let nftTxn = await connectedContract.makeAnEpicNFT();
+        // let nftTxn = await connectedContract.makeAnEpicNFT();
+        let wei = ethers.utils.parseEther(".05");
+        let nftTxn = await connectedContract.mint({
+          from: currentAccount,
+          value: wei,
+        });
         // if you want to add price to nft
-        // let wei = ethers.utils.parseEther("1");
-        // {
-        //   from: currentAccount,
-        //   value: wei,
-        // }
+        console.log("Going to pop wallet now to pay gas...");
+
         console.log("Mining...please wait.");
         setMinting(true);
         await nftTxn.wait();
@@ -137,8 +146,8 @@ const App = () => {
           `Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`
         );
         setMinting(false);
-        const mintedSoFar = await connectedContract.mintedSoFar();
-        setMinted(mintedSoFar.toNumber());
+        // const mintedSoFar = await connectedContract.mintedSoFar();
+        // setMinted(mintedSoFar.toNumber());
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -149,7 +158,7 @@ const App = () => {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, []);
+  }, [supply]);
 
   /*
    * We added a simple onClick event here.
@@ -179,37 +188,74 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header gradient-text">My NFT Collection</p>
+          <p className="header gradient-text">Arbi Monkes</p>
+          <img
+            src={gif}
+            alt="gif"
+            style={{
+              width: "300px",
+              height: "300px",
+              margin: "2rem 0",
+              borderRadius: "15%",
+            }}
+          />
           <p className="sub-text">
-            Each unique. Each beautiful. Discover your NFT today.
+            Arbi Monkes are now live for minting on{" "}
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://twitter.com/arbitrum"
+            >
+              @arbitrum
+            </a>
+            . They're inspired by Etherean culture,{" "}
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://twitter.com/Arbys"
+            >
+              @Arbys
+            </a>
+            , BAPE, and DBZ.
           </p>
+          <span className="sub-text">Total Supply: 1000</span>
+          <span className="sub-text">Price: .05 ETH</span>
+          <span className="sub-text">Royalty: None</span>
           {currentAccount === ""
             ? renderNotConnectedContainer()
             : renderMintUI()}
-          <p style={{ color: "white" }}>
+          {/* <p>
             {minted} / {TOTAL_MINT_COUNT} Amount minted
+          </p> */}
+          <p className="supply">
+            {supply} / {TOTAL_MINT_COUNT} minted
           </p>
-          <button as={Link} target="_blank" rel="noreferrer" to={link}>
+          {/* <a
+            target="_blank"
+            className="visit-nft-btn"
+            rel="noreferrer"
+            href={link}
+          >
             Visit NFT
-          </button>
+          </a> */}
         </div>
         <div className="footer-container">
-          <a
+          {/* <a
             href={OPENSEA_LINK}
             target="_blank"
             rel="noreferrer"
             className="footer-btn"
           >
             <img alt="Opensea" className="opensea-logo" src={opensea} />
-          </a>
+          </a> */}
 
-          <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
+          {/* <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
             className="footer-text"
             href={TWITTER_LINK}
             target="_blank"
             rel="noreferrer"
-          >{`built on @${TWITTER_HANDLE}`}</a>
+          >{`built on @${TWITTER_HANDLE}`}</a> */}
         </div>
       </div>
     </div>

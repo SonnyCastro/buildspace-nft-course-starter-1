@@ -1,13 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap");
+
 .App {
   height: 100vh;
-  background-color: #0d1116;
+  background-color: #bae2ca;
   overflow: scroll;
   text-align: center;
+  font-family: "Coming Soon", cursive;
 }
 
 .container {
   height: 100%;
-  background-color: #0d1116;
+  background-color: #bae2ca;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,6 +18,10 @@
 
 .header-container {
   padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .header {
@@ -25,15 +32,16 @@
 
 .sub-text {
   font-size: 25px;
-  color: white;
+  color: black;
+  max-width: 40rem;
 }
 
-.gradient-text {
+/* .gradient-text {
   background: -webkit-linear-gradient(left, #60c657 30%, #35aee2 60%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
+} */
 
 .cta-button {
   height: 45px;
@@ -49,24 +57,32 @@
 }
 
 .connect-wallet-button {
-  background: -webkit-linear-gradient(left, #60c657, #35aee2);
+  /* background: -webkit-linear-gradient(left, #60c657, #35aee2);
   background-size: 200% 200%;
-  animation: gradient-animation 4s ease infinite;
+  animation: gradient-animation 4s ease infinite; */
+  background-color: black;
+  background-size: 200% 200%;
+  color: white;
+  margin-top: 2rem;
 }
 
 .mint-button {
-  background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
+  /* background: -webkit-linear-gradient(left, #a200d6, #ff6fdf); */
+  background-color: black;
   background-size: 200% 200%;
-  animation: gradient-animation 4s ease infinite;
-  margin-right: 15px;
-}
-
-.opensea-button {
-  background-color: rgb(32, 129, 226);
-}
-
-.mint-count {
   color: white;
+  /* animation: gradient-animation 4s ease infinite; */
+  /* margin-right: 15px; */
+}
+
+.visit-nft-btn {
+  font-size: 1.5rem;
+}
+.supply {
+  font-size: 1.5rem;
+}
+.mint-count {
+  color: black;
   font-size: 18px;
   font-weight: bold;
 }
@@ -84,7 +100,7 @@
 }
 
 .footer-text {
-  color: white;
+  color: black;
   font-size: 1rem;
   font-weight: bold;
 }
