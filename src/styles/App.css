@@ -75,11 +75,24 @@
   /* margin-right: 15px; */
 }
 
+.view-collection-btn {
+  padding-left: 1rem;
+}
+
 .visit-nft-btn {
   font-size: 1.5rem;
 }
 .supply {
   font-size: 1.5rem;
+  margin: 0%;
+  padding-top: 25px;
+}
+
+.show {
+  font-size: 1rem;
+}
+.hide {
+  display: none;
 }
 .mint-count {
   color: black;
@@ -91,7 +104,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding-bottom: 30px;
+  font-size: 1.3rem;
 }
 
 .twitter-logo {

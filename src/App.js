@@ -21,6 +21,7 @@ const App = () => {
   const [minted, setMinted] = useState(0);
   const [supply, setSupply] = useState(0);
   const [minting, setMinting] = useState(false);
+  const [mintingComplete, setMintingComplete] = useState(false);
   const [link, setLink] = useState("");
 
   const checkIfWalletIsConnected = async () => {
@@ -142,9 +143,11 @@ const App = () => {
         setMinting(true);
         await nftTxn.wait();
         console.log(nftTxn);
+        setMintingComplete(true);
         console.log(
-          `Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`
+          `Mined, see transaction: https://arbiscan.io/tx/${nftTxn.hash}`
         );
+        setLink(`https://arbiscan.io/tx/${nftTxn.hash}`);
         setMinting(false);
         // const mintedSoFar = await connectedContract.mintedSoFar();
         // setMinted(mintedSoFar.toNumber());
@@ -176,12 +179,29 @@ const App = () => {
    * We want the "Connect to Wallet" button to dissapear if they've already connected their wallet!
    */
   const renderMintUI = () => (
-    <button
-      onClick={askContractToMintNft}
-      className="cta-button connect-wallet-button"
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
-      {minting ? "Minting please wait..." : "Mint NFT"}
-    </button>
+      <button
+        onClick={askContractToMintNft}
+        className="cta-button connect-wallet-button"
+      >
+        {minting ? "Minting please wait..." : "Mint NFT"}
+      </button>
+      <a
+        rel="noreferrer"
+        target="_blank"
+        className={mintingComplete ? "show" : "hide"}
+        href={link}
+      >
+        {mintingComplete ? "Minting Complete View TX" : ""}
+      </a>
+    </div>
   );
 
   return (
@@ -200,23 +220,15 @@ const App = () => {
             }}
           />
           <p className="sub-text">
-            Arbi Monkes are now live for minting on{" "}
             <a
               rel="noreferrer"
               target="_blank"
-              href="https://twitter.com/arbitrum"
+              href="https://twitter.com/defgmi"
             >
-              @arbitrum
-            </a>
-            . They're inspired by Etherean culture,{" "}
-            <a
-              rel="noreferrer"
-              target="_blank"
-              href="https://twitter.com/Arbys"
-            >
-              @Arbys
-            </a>
-            , BAPE, and DBZ.
+              Arbi Monkes
+            </a>{" "}
+            are now live for minting on Arbitrum. They're inspired by Etherean
+            culture, Arbys, BAPE, and DBZ.
           </p>
           <span className="sub-text">Total Supply: 1000</span>
           <span className="sub-text">Price: .05 ETH</span>
@@ -228,7 +240,7 @@ const App = () => {
             {minted} / {TOTAL_MINT_COUNT} Amount minted
           </p> */}
           <p className="supply">
-            {supply} / {TOTAL_MINT_COUNT} minted
+            {supply - 1} / {TOTAL_MINT_COUNT} minted
           </p>
           {/* <a
             target="_blank"
@@ -248,20 +260,30 @@ const App = () => {
           >
             <img alt="Opensea" className="opensea-logo" src={opensea} />
           </a> */}
-
-          {/* <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
-          <a
-            className="footer-text"
-            href={TWITTER_LINK}
-            target="_blank"
-            rel="noreferrer"
-          >{`built on @${TWITTER_HANDLE}`}</a> */}
+          <p>
+            built by{" "}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://twitter.com/defgmi"
+            >
+              @defgmi
+            </a>
+            <a
+              className="view-collection-btn"
+              target="_blank"
+              rel="noreferrer"
+              href="https://twitter.com/corleone_gmi"
+            >
+              @corleone_gmi
+            </a>
+          </p>
           <a
             target="_blank"
             rel="noreferrer"
             href="https://smolpuddle.io/#/0x7ce6e07107e5b972a2ccac6598ff8b06044ec6a3"
           >
-            View Collection
+            View on smolpuddle
           </a>
         </div>
       </div>
