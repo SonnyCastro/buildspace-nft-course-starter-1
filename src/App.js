@@ -227,8 +227,8 @@ const App = () => {
             >
               Arbi Monkes
             </a>{" "}
-            are now live for minting on Arbitrum. They're inspired by Etherean
-            culture, Arbys, BAPE, and DBZ.
+            are a generative art project available for minting on Arbitrum
+            They're inspired by Etherean culture, Arbys, BAPE, and DBZ.
           </p>
           <span className="sub-text">Total Supply: 1000</span>
           <span className="sub-text">Price: .05 ETH</span>
@@ -240,7 +240,9 @@ const App = () => {
             {minted} / {TOTAL_MINT_COUNT} Amount minted
           </p> */}
           <p className="supply">
-            {supply - 1} / {TOTAL_MINT_COUNT} minted
+            {currentAccount == ""
+              ? `0 / 1000 minted`
+              : `${supply - 1} / ${TOTAL_MINT_COUNT} minted`}
           </p>
           {/* <a
             target="_blank"
