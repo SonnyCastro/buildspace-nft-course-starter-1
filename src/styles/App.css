@@ -8,6 +8,14 @@
   font-family: "Coming Soon", cursive;
 }
 
+a:visited {
+  color: #6f9a88;
+}
+
+a {
+  color: white;
+}
+
 .container {
   height: 100%;
   background-color: #bae2ca;
@@ -82,14 +90,10 @@
 .visit-nft-btn {
   font-size: 1.5rem;
 }
-.supply {
-  font-size: 1.5rem;
-  margin: 0%;
-  padding-top: 25px;
-}
 
 .show {
   font-size: 1rem;
+  padding: 1.5rem 0;
 }
 .hide {
   display: none;

@@ -233,17 +233,17 @@ const App = () => {
           <span className="sub-text">Total Supply: 1000</span>
           <span className="sub-text">Price: .05 ETH</span>
           <span className="sub-text">Royalty: None</span>
+          <span className="sub-text">
+            {currentAccount == ""
+              ? ``
+              : `${supply - 1} / ${TOTAL_MINT_COUNT} minted`}
+          </span>
           {currentAccount === ""
             ? renderNotConnectedContainer()
             : renderMintUI()}
           {/* <p>
             {minted} / {TOTAL_MINT_COUNT} Amount minted
           </p> */}
-          <p className="supply">
-            {currentAccount == ""
-              ? `0 / 1000 minted`
-              : `${supply - 1} / ${TOTAL_MINT_COUNT} minted`}
-          </p>
           {/* <a
             target="_blank"
             className="visit-nft-btn"
@@ -278,6 +278,11 @@ const App = () => {
               href="https://twitter.com/corleone_gmi"
             >
               @corleone_gmi
+            </a>
+          </p>
+          <p>
+            <a target="_blank" rel="noreferrer" href="https://t.me/arbiemonkes">
+              Join Monkeverse
             </a>
           </p>
           <a
