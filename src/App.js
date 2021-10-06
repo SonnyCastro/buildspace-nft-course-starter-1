@@ -256,6 +256,13 @@ const App = () => {
             target="_blank"
             rel="noreferrer"
           >{`built on @${TWITTER_HANDLE}`}</a> */}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://smolpuddle.io/#/0x7ce6e07107e5b972a2ccac6598ff8b06044ec6a3"
+          >
+            View Collection
+          </a>
         </div>
       </div>
     </div>
