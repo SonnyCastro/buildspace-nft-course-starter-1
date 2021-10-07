@@ -1,0 +1,49 @@
+.modalBackground {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(200, 200, 200);
+  opacity: 1;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.red-x-container {
+  height: 46px;
+  width: 46px;
+  border-radius: 10px solid red;
+  border-radius: 25px;
+  background-color: rgb(253, 163, 163);
+}
+.red-x {
+  color: red;
+}
+
+.modalContainer {
+  width: 500px;
+  height: 300px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
+
+.modalContainer .body {
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.modalContainer .footer {
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

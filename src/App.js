@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 // import myEpicNft from "./utils/MyEpicNFT.json";
 import ArbiMonkes from "./utils/ArbiMonkes.json";
 import gif from "../src/assets/arbimonkes.gif";
+import IncorrectNetwork from "./components/IncorrectNetwork";
 // Constants
 const TWITTER_HANDLE = "sonny_castroo";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -22,6 +23,7 @@ const App = () => {
   const [supply, setSupply] = useState(0);
   const [minting, setMinting] = useState(false);
   const [mintingComplete, setMintingComplete] = useState(false);
+  const [currentNetwork, setCurrentNetwork] = useState(0);
   const [link, setLink] = useState("");
 
   const checkIfWalletIsConnected = async () => {
@@ -35,6 +37,16 @@ const App = () => {
     }
 
     const accounts = await ethereum.request({ method: "eth_accounts" });
+
+    console.log("setting the network to ", parseInt(ethereum.networkVersion));
+    setCurrentNetwork(parseInt(ethereum.networkVersion));
+
+    // detect Network account change
+    ethereum.on("chainChanged", function (chainId) {
+      console.log("Chain was updated", parseInt(chainId));
+      console.log("setting the network to this ", parseInt(chainId));
+      setCurrentNetwork(parseInt(chainId));
+    });
 
     if (accounts.length !== 0) {
       const account = accounts[0];
@@ -62,6 +74,8 @@ const App = () => {
         method: "eth_requestAccounts",
       });
 
+      setCurrentNetwork(parseInt(ethereum.networkVersion));
+
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]);
 
@@ -72,7 +86,6 @@ const App = () => {
       console.log(error);
     }
   };
-
   // Setup our listener.
   const setupEventListener = async () => {
     // Most of this looks the same as our function askContractToMintNft
@@ -187,6 +200,7 @@ const App = () => {
         alignItems: "center",
       }}
     >
+      {/* {currentNetwork !== 42161 && currentAccount && <IncorrectNetwork />} */}
       <button
         onClick={askContractToMintNft}
         className="cta-button connect-wallet-button"
@@ -206,6 +220,7 @@ const App = () => {
 
   return (
     <div className="App">
+      {currentNetwork !== 42161 && currentAccount && <IncorrectNetwork />}
       <div className="container">
         <div className="header-container">
           <p className="header gradient-text">Arbi Monkes</p>
@@ -227,7 +242,7 @@ const App = () => {
             >
               Arbi Monkes
             </a>{" "}
-            are a generative art project available for minting on Arbitrum
+            are a generative art project available for minting on Arbitrum.
             They're inspired by Etherean culture, Arbys, BAPE, and DBZ.
           </p>
           <span className="sub-text">Total Supply: 1000</span>
