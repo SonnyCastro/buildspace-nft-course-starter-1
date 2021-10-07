@@ -308,6 +308,12 @@ const App = () => {
             View on smolpuddle
           </a>
         </div>
+        <p className="disclaimer">
+          The information provided on this website does not constitute
+          investment advice, financial advice, trading advice, or any other sort
+          of advice and you should not treat any of the website's content as
+          such.
+        </p>
       </div>
     </div>
   );

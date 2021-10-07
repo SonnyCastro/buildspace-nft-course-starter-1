@@ -22,6 +22,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 .header-container {
@@ -43,6 +44,16 @@ a {
   color: black;
   max-width: 40rem;
   margin: 0%;
+}
+
+.disclaimer {
+  max-width: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 0.7rem;
+  padding-bottom: 2rem;
 }
 
 /* .gradient-text {
@@ -109,66 +120,4 @@ a {
   flex-direction: column;
   padding-bottom: 30px;
   font-size: 1.3rem;
-}
-
-.twitter-logo {
-  width: 35px;
-  height: 35px;
-}
-
-.footer-text {
-  color: black;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-/* KeyFrames */
-@-webkit-keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@-moz-keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.footer-btn {
-  background-color: transparent;
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.opensea-logo {
-  width: 10rem;
-  height: 4rem;
-  padding-right: 1rem;
 }
