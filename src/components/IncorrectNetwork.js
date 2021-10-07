@@ -20,7 +20,7 @@ const IncorrectNetwork = () => {
         </div>
 
         <div className="body">
-          Incorrect network please switch to arbitrum network.
+          Incorrect network please switch to Arbitrum network.
         </div>
         <div className="footer">See you on Arbitrum</div>
       </div>
