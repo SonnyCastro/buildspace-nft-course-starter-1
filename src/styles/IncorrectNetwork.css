@@ -1,13 +1,20 @@
 .modalBackground {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(200, 200, 200);
-  opacity: 1;
+  /* background-color: rgba(200, 200, 200);
+  opacity: 1; */
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.test {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(107, 114, 128, 0.5);
+  position: absolute;
+}
+
 .red-x-container {
   height: 46px;
   width: 46px;
@@ -22,6 +29,7 @@
 .modalContainer {
   width: 500px;
   height: 300px;
+  z-index: 100;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

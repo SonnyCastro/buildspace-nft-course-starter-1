@@ -81,7 +81,7 @@ const App = () => {
 
       // Setup listener! This is for the case where a user comes to our site
       // and connected their wallet for the first time.
-      setupEventListener();
+      // setupEventListener();
     } catch (error) {
       console.log(error);
     }
@@ -245,17 +245,17 @@ const App = () => {
             are a generative art project available for minting on Arbitrum.
             They're inspired by Etherean culture, Arbys, BAPE, and DBZ.
           </p>
+          {currentAccount === ""
+            ? renderNotConnectedContainer()
+            : renderMintUI()}
           <span className="sub-text">Total Supply: 1000</span>
           <span className="sub-text">Price: .05 ETH</span>
           <span className="sub-text">Royalty: None</span>
           <span className="sub-text">
             {currentAccount == ""
               ? ``
-              : `${supply - 1} / ${TOTAL_MINT_COUNT} minted`}
+              : `${supply} / ${TOTAL_MINT_COUNT} minted`}
           </span>
-          {currentAccount === ""
-            ? renderNotConnectedContainer()
-            : renderMintUI()}
           {/* <p>
             {minted} / {TOTAL_MINT_COUNT} Amount minted
           </p> */}

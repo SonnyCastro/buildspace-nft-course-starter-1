@@ -3,6 +3,7 @@ import "../styles/IncorrectNetwork.css";
 const IncorrectNetwork = () => {
   return (
     <div className="modalBackground">
+      <div className="test"></div>
       <div className="modalContainer">
         <div className="red-x-container">
           <svg

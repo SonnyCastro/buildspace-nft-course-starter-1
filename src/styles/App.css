@@ -42,6 +42,7 @@ a {
   font-size: 25px;
   color: black;
   max-width: 40rem;
+  margin: 0%;
 }
 
 /* .gradient-text {
@@ -65,13 +66,10 @@ a {
 }
 
 .connect-wallet-button {
-  /* background: -webkit-linear-gradient(left, #60c657, #35aee2);
-  background-size: 200% 200%;
-  animation: gradient-animation 4s ease infinite; */
   background-color: black;
   background-size: 200% 200%;
   color: white;
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
 
 .mint-button {
